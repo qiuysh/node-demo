@@ -1,12 +1,10 @@
 const router = require('koa-router')();
-const index = require('../controllers/index');
-const loginContr = require('../controllers/login');
-const homeContr = require('../controllers/home');
+const indexController = require('../controllers/index');
+const loginController = require('../controllers/login');
 
-router.get('/', index)
-router.get('/login', loginContr.login)
-router.post('/login', loginContr.signin)
-router.get('/signin_failed', loginContr.sign_failed)
-router.get('/home', homeContr.home)
+router.get('/', indexController.index);
+router.post('/api/v1/login', loginController.login);
+router.get('/api/v1/logout', indexController.logout);
+router.post('/api/v1/findUserByPage', indexController.findUserByPage);
 
 module.exports = router;

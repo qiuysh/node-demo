@@ -1,28 +1,22 @@
-const login = async (ctx, next) => {
-  await ctx.render('login.html', {
-    title: '登录',
-  });
-};
+const userModel = require('../config/user')
 
-const signin = async (ctx, next) => {
-  var name = ctx.request.body.name || '',
-      password = ctx.request.body.password || '';
-  if (name === 'koa' && password === '12345') {
-    ctx.redirect('/home');
+const login = async (ctx, next) => {
+  let { username, password } = ctx.request.body;
+  let user = await userModel.findByUser(username);
+  if (user && username === user.name && password === user.password) {
+    ctx.body = {
+      result_message: '登录成功！',
+      result: true
+    };
   } else {
-    ctx.redirect('/signin_failed');
+    ctx.body = {
+      result_message: '账号或者密码不正确！',
+      result: false
+    };
   }
 };
 
-const sign_failed = async (ctx, next) => {
-  await ctx.render('signin-failed.html', {
-    title: '登录失败',
-    name: '请确定账号密码！'
-  });
-};
 
 module.exports = {
   login,
-  signin,
-  sign_failed
 };
