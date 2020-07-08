@@ -1,29 +1,39 @@
 const userModel = require('../config/user')
 
-const index = async (ctx, next) => {
-  console.log(ctx)
+// 重定向到登录
+const redirectLogin = async (ctx, next) => {
+  ctx.redirect('/login')
 };
 
 const logout = async (ctx, next) => {
-  ctx.session.token = null;
+  ctx.session = null;
   ctx.body = {
     result_message: '已退出当前用户！',
     result: true
   };
 };
 
+
 const findUserByPage = async (ctx, next) => {
-  let { page, size } = ctx.request.body;
-  let data = await userModel.findUserByPage({page, size});
-  ctx.body = {
-    data,
-    result_message: '查询成功！',
-    result: true
-  };
+  if (ctx.session.user_id) {
+    let { page, size } = ctx.request.body;
+    let data = await userModel.findUserByPage({page, size});
+    ctx.body = {
+      data,
+      result_message: '查询成功！',
+      result: true
+    };
+  } else {
+    ctx.body = {
+      result_message: '账号未登录！',
+      result: true
+    };
+    redirectLogin()
+  }
 };
 
 module.exports = {
-  index,
+  redirectLogin,
   logout,
   findUserByPage
 };

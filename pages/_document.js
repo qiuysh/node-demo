@@ -6,7 +6,6 @@ class MyDocument extends Document {
       <Html>
           <Head>
             <meta charSet='utf-8' />
-            <title>橘猫</title>
             <meta name='viewport' content='initial-scale=1.0, width=device-width' />
             <style jsx global>{`
               #__next {

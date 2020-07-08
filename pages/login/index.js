@@ -28,7 +28,7 @@ class LoginForm extends React.Component {
     return (
       <div className="login-wrapper">
         <div className="login-form">
-          <h1>橘猫</h1>
+          <h1>未命名</h1>
           <Form>
             <Form.Item>
               {getFieldDecorator('username', {
@@ -54,11 +54,6 @@ class LoginForm extends React.Component {
               )}
             </Form.Item>
             <Form.Item>
-              {/* {getFieldDecorator('remember', {
-                valuePropName: 'checked',
-                initialValue: true,
-              })(<Checkbox>记住我</Checkbox>)} */}
-              <Checkbox>记住我</Checkbox>
               <Button type="primary" 
                 size="large"
                 onClick={this.handleSubmit} 
